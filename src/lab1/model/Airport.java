@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.Arrays;
 
 public class Airport {
+
     private String destination;
     private String flightNumber;
     private String planeType;
@@ -66,12 +67,6 @@ public class Airport {
 
     public void setPlaneNumber(int planeNumber) {
         this.planeNumber = planeNumber;
-    }
-
-    public Airport[] getByDestination(String destination) {
-        Airport[] airports = new Airport[4];
-        System.out.println(Arrays.toString(airports));
-        return airports;
     }
 
     @Override
