@@ -42,7 +42,7 @@ public class Airport {
     }
 
     public void setPlaneType(String planeType) {
-        this.planeNumber = planeNumber;
+        this.planeType = planeType;
     }
 
     public LocalTime getStartTime() {
@@ -71,14 +71,15 @@ public class Airport {
 
     @Override
     public String toString() {
-        return "Airport{" +
-                "destination = '" + destination + '\'' +
-                ", flightNumber = '" + flightNumber + '\'' +
-                ", planeType = '" + planeType + '\'' +
-                ", startTime = " + startTime +
-                ", weekDays = " + Arrays.toString(weekDays) +
-                ", planeNumber = " + planeNumber +
-                '}';
+        return String.format("%20s%20s%20s%17tH:%2tM%30s%20d",
+                destination,
+                flightNumber,
+                planeType,
+                startTime,
+                startTime,
+                Arrays.toString(weekDays),
+                planeNumber
+        );
     }
 }
 

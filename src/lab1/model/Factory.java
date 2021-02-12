@@ -72,7 +72,7 @@ public class Factory {
     public Airport[] getAirportsByDestination(String destination) {
         Airport[] wantedAirports = new Airport[0];
         for (Airport airport : airports) {
-            if (airport.getDestination() == destination) {
+            if (airport.getDestination().equals(destination)) {
                 Airport[] newWantedAirports = new Airport[wantedAirports.length + 1];
                 System.arraycopy(wantedAirports, 0, newWantedAirports, 0, wantedAirports.length);
                 wantedAirports = newWantedAirports;
