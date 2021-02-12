@@ -81,4 +81,36 @@ public class Factory {
         }
         return wantedAirports;
     }
+
+    public Airport[] getAirportsByWeekDay(String weekDay) {
+        Airport[] wantedAirports = new Airport[0];
+        outer:
+        for (Airport airport : airports) {
+            String[] weekDays = airport.getWeekDays();
+            for (String day : weekDays) {
+                if (day.equals(weekDay)) {
+                    Airport[] newWantedAirports = new Airport[wantedAirports.length + 1];
+                    System.arraycopy(wantedAirports, 0, newWantedAirports, 0, wantedAirports.length);
+                    wantedAirports = newWantedAirports;
+                    wantedAirports[wantedAirports.length - 1] = airport;
+                    continue outer;
+                }
+            }
+        }
+        return wantedAirports;
+    }
+
+    public Airport[] getAirportsByWeekDayAndTime(String weekDay, LocalTime startTime) {
+        Airport[] airportsByWeekDay = getAirportsByWeekDay(weekDay);
+        Airport[] wantedAirports = new Airport[0];
+        for (Airport airport : airportsByWeekDay) {
+            if (airport.getStartTime().compareTo(startTime) == 1) {
+                Airport[] newWantedAirports = new Airport[wantedAirports.length + 1];
+                System.arraycopy(wantedAirports, 0, newWantedAirports, 0, wantedAirports.length);
+                wantedAirports = newWantedAirports;
+                wantedAirports[wantedAirports.length - 1] = airport;
+            }
+        }
+        return wantedAirports;
+    }
 }
