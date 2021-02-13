@@ -4,7 +4,7 @@ import java.time.LocalTime;
 
 public class Factory {
 
-    private Airport[] airports;
+    private final Airport[] airports;
 
     public Factory(int numberOfObjects) {
         airports = new Airport[numberOfObjects];
@@ -72,7 +72,7 @@ public class Factory {
     public Airport[] getAirportsByDestination(String destination) {
         Airport[] wantedAirports = new Airport[0];
         for (Airport airport : airports) {
-            if (airport.getDestination().equals(destination)) {
+            if (airport.getDestination().equalsIgnoreCase(destination)) {
                 Airport[] newWantedAirports = new Airport[wantedAirports.length + 1];
                 System.arraycopy(wantedAirports, 0, newWantedAirports, 0, wantedAirports.length);
                 wantedAirports = newWantedAirports;
@@ -88,7 +88,7 @@ public class Factory {
         for (Airport airport : airports) {
             String[] weekDays = airport.getWeekDays();
             for (String day : weekDays) {
-                if (day.equals(weekDay)) {
+                if (day.equalsIgnoreCase(weekDay)) {
                     Airport[] newWantedAirports = new Airport[wantedAirports.length + 1];
                     System.arraycopy(wantedAirports, 0, newWantedAirports, 0, wantedAirports.length);
                     wantedAirports = newWantedAirports;
@@ -104,7 +104,7 @@ public class Factory {
         Airport[] airportsByWeekDay = getAirportsByWeekDay(weekDay);
         Airport[] wantedAirports = new Airport[0];
         for (Airport airport : airportsByWeekDay) {
-            if (airport.getStartTime().compareTo(startTime) == 1) {
+            if (airport.getStartTime().compareTo(startTime) > 0) {
                 Airport[] newWantedAirports = new Airport[wantedAirports.length + 1];
                 System.arraycopy(wantedAirports, 0, newWantedAirports, 0, wantedAirports.length);
                 wantedAirports = newWantedAirports;

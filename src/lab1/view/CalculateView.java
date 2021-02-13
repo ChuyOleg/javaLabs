@@ -4,15 +4,25 @@ import lab1.model.Airport;
 
 public class CalculateView {
 
-    public static final String INPUT_DATA = "Select an action:  getAll | getByDestination | getByWeekDay | GetByWeekDayAndTime | Exit => ";
+    public final String INPUT_DATA = "Select an action:  getAll(1) | getByDestination(2) | getByWeekDay(3) | GetByWeekDayAndTime(4) | Exit => ";
 
-    public static final String END_DATA = "Thanks for the interaction. It's over!";
+    public final String END_DATA = "Thanks for the interaction. It's over!";
 
-    public static final String WRONG_INPUT_DATA = "Wrong input! Repeat please! ";
+    public final String FILTER_DESTINATION = "Select a destination => ";
 
-    public static final String RESULT = "Filtered data => ";
+    public final String FILTER_WEEKDAY = "Select a weekDay => ";
 
-    public static final String COLUMNS = String.format("%20s%20s%20s%20s%30s%20s",
+    public final String FILTER_HOUR = "Select an hour => ";
+
+    public final String FILTER_MINUTE = "Select a minute => ";
+
+    public final String WRONG_INPUT_DATA = "Wrong input! ";
+
+    public final String NO_DATA = "Nothing have been found, please try again.";
+
+    public final String RESULT = String.format("%70s", "Filtered data");
+
+    public final String COLUMNS = String.format("%20s%20s%20s%20s%30s%20s",
             "Destination",
             "FlightNumber",
             "PlaneType",
@@ -26,7 +36,7 @@ public class CalculateView {
     }
 
     public void printMessageAndResult(String message, Airport[] airports) {
-        System.out.println(System.lineSeparator() + message);
+        System.out.println(message);
         for (Airport airport : airports) {
             System.out.println(airport);
         }
