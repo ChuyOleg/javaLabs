@@ -11,7 +11,7 @@ public class CalculateController {
 
     private static final Scanner sc = new Scanner(System.in);
     private final CalculateView view = new CalculateView();
-    private final Factory factory = new Factory(5);
+    private final Factory factory = new Factory(7);
 
     public void runScanner() {
         String action;
@@ -72,6 +72,7 @@ public class CalculateController {
         int hour = sc.nextInt();
         view.printMessage(view.FILTER_MINUTE);
         int minute = sc.nextInt();
+        sc.nextLine();
         LocalTime startTime = LocalTime.of(hour, minute);
         return factory.getAirportsByWeekDayAndTime(weekDay, startTime);
     }
