@@ -13,59 +13,55 @@ public class CalculateController {
     private final CalculateView view = new CalculateView();
     private final Model model = new Model();
 
-    public void runScanner() {
+    public void runProgram() {
         String action;
         view.printMessage(view.INPUT_DATA);
-        while(!sc.hasNext("Exit") && !sc.hasNext("exit")) {
+        while(true) {
             action = sc.nextLine();
-            calculate(action);
+            calculateAction(action);
         }
-        view.printMessage(view.END_DATA);
     }
 
-    public void calculate(String action) {
+    public void calculateAction(String action) {
 
-        Airport[] airports = new Airport[0];
-
-        if (action.equalsIgnoreCase("getAll") || action.equalsIgnoreCase("1")) {
-            airports = showAllAirports();
-        } else if (action.equalsIgnoreCase("getByDestination") || action.equalsIgnoreCase("2")) {
-            airports = showAirportsByDestination();
-        } else if (action.equalsIgnoreCase("getByWeekDay") || action.equalsIgnoreCase("3")) {
-            airports = showAirportsByWeekDay();
-        } else if (action.equalsIgnoreCase("GetByWeekDayAndTime") || action.equalsIgnoreCase("4")) {
-            airports = showAirportsByWeekDayAndTime();
+        if (action.equalsIgnoreCase("getAll") || action.equals("1")) {
+            showAllAirports();
+        } else if (action.equalsIgnoreCase("getByDestination") || action.equals("2")) {
+            showAirportsByDestination();
+        } else if (action.equalsIgnoreCase("getByWeekDay") || action.equals("3")) {
+            showAirportsByWeekDay();
+        } else if (action.equalsIgnoreCase("GetByWeekDayAndTime") || action.equals("4")) {
+            showAirportsByWeekDayAndTime();
+        } else if (action.equalsIgnoreCase("Exit") || action.equals("5")) {
+            view.printMessage(view.END_DATA);
+            System.exit(0);
         } else {
             view.printMessage(view.WRONG_INPUT_DATA);
         }
 
-        if (airports.length > 0) {
-            view.printMessageAndResult(view.RESULT + System.lineSeparator() + view.COLUMNS, airports);
-            view.printMessage(System.lineSeparator());
-        } else {
-            view.printMessage(view.NO_DATA + System.lineSeparator());
-        }
-
         view.printMessage(view.INPUT_DATA);
     }
 
-    public Airport[] showAllAirports() {
-        return model.getAllAirports();
+    public void showAllAirports() {
+        Airport[] airports = model.getAllAirports();
+        view.printMessageAndResult(airports);
     }
 
-    public Airport[] showAirportsByDestination() {
+    public void showAirportsByDestination() {
         view.printMessage(view.FILTER_DESTINATION);
         String parameter = sc.nextLine();
-        return model.getAirportsByDestination(parameter);
+        Airport[] airports = model.getAirportsByDestination(parameter);
+        view.printMessageAndResult(airports);
     }
 
-    public Airport[] showAirportsByWeekDay() {
+    public void showAirportsByWeekDay() {
         view.printMessage(view.FILTER_WEEKDAY);
         String parameter = sc.nextLine();
-        return model.getAirportsByWeekDay(parameter);
+        Airport[] airports = model.getAirportsByWeekDay(parameter);
+        view.printMessageAndResult(airports);
     }
 
-    public Airport[] showAirportsByWeekDayAndTime() {
+    public void showAirportsByWeekDayAndTime() {
         view.printMessage(view.FILTER_WEEKDAY);
         String weekDay = sc.nextLine();
         view.printMessage(view.FILTER_HOUR);
@@ -74,6 +70,7 @@ public class CalculateController {
         int minute = sc.nextInt();
         sc.nextLine();
         LocalTime startTime = LocalTime.of(hour, minute);
-        return model.getAirportsByWeekDayAndTime(weekDay, startTime);
+        Airport[] airports = model.getAirportsByWeekDayAndTime(weekDay, startTime);
+        view.printMessageAndResult(airports);
     }
 }

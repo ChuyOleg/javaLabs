@@ -4,7 +4,7 @@ import lab1.model.Airport;
 
 public class CalculateView {
 
-    public final String INPUT_DATA = "Select an action:  getAll(1) | getByDestination(2) | getByWeekDay(3) | GetByWeekDayAndTime(4) | Exit => ";
+    public final String INPUT_DATA = "Select an action:  getAll(1) | getByDestination(2) | getByWeekDay(3) | GetByWeekDayAndTime(4) | Exit(5) => ";
 
     public final String END_DATA = "Thanks for the interaction. It's over!";
 
@@ -35,10 +35,15 @@ public class CalculateView {
         System.out.print(message);
     }
 
-    public void printMessageAndResult(String message, Airport[] airports) {
-        System.out.println(message);
-        for (Airport airport : airports) {
-            System.out.println(airport);
+    public void printMessageAndResult(Airport[] airports) {
+        if (airports.length > 0) {
+            System.out.println(RESULT + System.lineSeparator() + COLUMNS);
+            for (Airport airport : airports) {
+                System.out.println(airport);
+            }
+            System.out.println(System.lineSeparator());
+        } else {
+            printMessage(NO_DATA + System.lineSeparator());
         }
     }
 }
