@@ -25,48 +25,12 @@ public class Airport {
         return destination;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public String getFlightNumber() {
-        return flightNumber;
-    }
-
-    public void setFlightNumber(String flightNumber) {
-        this.flightNumber = flightNumber;
-    }
-
-    public String getPlaneType() {
-        return planeType;
-    }
-
-    public void setPlaneType(String planeType) {
-        this.planeType = planeType;
-    }
-
     public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
     public String[] getWeekDays() {
         return weekDays;
-    }
-
-    public void setWeekDays(String[] weekDays) {
-        this.weekDays = weekDays;
-    }
-
-    public int getPlaneNumber() {
-        return planeNumber;
-    }
-
-    public void setPlaneNumber(int planeNumber) {
-        this.planeNumber = planeNumber;
     }
 
     @Override

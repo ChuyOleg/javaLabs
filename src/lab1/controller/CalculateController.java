@@ -1,8 +1,8 @@
 package lab1.controller;
 
 import lab1.model.Airport;
-import lab1.model.Factory;
 import lab1.view.CalculateView;
+import lab1.model.Model;
 
 import java.time.LocalTime;
 import java.util.Scanner;
@@ -11,7 +11,7 @@ public class CalculateController {
 
     private static final Scanner sc = new Scanner(System.in);
     private final CalculateView view = new CalculateView();
-    private final Factory factory = new Factory(7);
+    private final Model model = new Model();
 
     public void runScanner() {
         String action;
@@ -50,19 +50,19 @@ public class CalculateController {
     }
 
     public Airport[] showAllAirports() {
-        return factory.getAllAirports();
+        return model.getAllAirports();
     }
 
     public Airport[] showAirportsByDestination() {
         view.printMessage(view.FILTER_DESTINATION);
         String parameter = sc.nextLine();
-        return factory.getAirportsByDestination(parameter);
+        return model.getAirportsByDestination(parameter);
     }
 
     public Airport[] showAirportsByWeekDay() {
         view.printMessage(view.FILTER_WEEKDAY);
         String parameter = sc.nextLine();
-        return factory.getAirportsByWeekDay(parameter);
+        return model.getAirportsByWeekDay(parameter);
     }
 
     public Airport[] showAirportsByWeekDayAndTime() {
@@ -74,6 +74,6 @@ public class CalculateController {
         int minute = sc.nextInt();
         sc.nextLine();
         LocalTime startTime = LocalTime.of(hour, minute);
-        return factory.getAirportsByWeekDayAndTime(weekDay, startTime);
+        return model.getAirportsByWeekDayAndTime(weekDay, startTime);
     }
 }
