@@ -15,48 +15,48 @@ public class Model {
     }
 
     public Airport[] getAirportsByDestination(String destination) {
-        Airport[] wantedAirports = new Airport[0];
+        Airport[] wantedAirports = new Airport[airports.length];
+        int index = 0;
         for (Airport airport : airports) {
             if (airport.getDestination().equalsIgnoreCase(destination)) {
-                Airport[] newWantedAirports = new Airport[wantedAirports.length + 1];
-                System.arraycopy(wantedAirports, 0, newWantedAirports, 0, wantedAirports.length);
-                wantedAirports = newWantedAirports;
-                wantedAirports[wantedAirports.length - 1] = airport;
+                wantedAirports[index++] = airport;
             }
         }
-        return wantedAirports;
+        Airport[] airportsByDestination = new Airport[index];
+        System.arraycopy(wantedAirports, 0, airportsByDestination, 0, index);
+        return airportsByDestination;
     }
 
     public Airport[] getAirportsByWeekDay(String weekDay) {
-        Airport[] wantedAirports = new Airport[0];
+        Airport[] wantedAirports = new Airport[airports.length];
+        int index = 0;
         outer:
         for (Airport airport : airports) {
             String[] weekDays = airport.getWeekDays();
             for (String day : weekDays) {
                 if (day.equalsIgnoreCase(weekDay)) {
-                    Airport[] newWantedAirports = new Airport[wantedAirports.length + 1];
-                    System.arraycopy(wantedAirports, 0, newWantedAirports, 0, wantedAirports.length);
-                    wantedAirports = newWantedAirports;
-                    wantedAirports[wantedAirports.length - 1] = airport;
+                    wantedAirports[index++] = airport;
                     continue outer;
                 }
             }
         }
-        return wantedAirports;
+        Airport[] airportsByWeekDay = new Airport[index];
+        System.arraycopy(wantedAirports, 0, airportsByWeekDay, 0, index);
+        return airportsByWeekDay;
     }
 
     public Airport[] getAirportsByWeekDayAndTime(String weekDay, LocalTime startTime) {
         Airport[] airportsByWeekDay = getAirportsByWeekDay(weekDay);
-        Airport[] wantedAirports = new Airport[0];
+        Airport[] wantedAirports = new Airport[airports.length];
+        int index = 0;
         for (Airport airport : airportsByWeekDay) {
             if (airport.getStartTime().compareTo(startTime) > 0) {
-                Airport[] newWantedAirports = new Airport[wantedAirports.length + 1];
-                System.arraycopy(wantedAirports, 0, newWantedAirports, 0, wantedAirports.length);
-                wantedAirports = newWantedAirports;
-                wantedAirports[wantedAirports.length - 1] = airport;
+                wantedAirports[index++] = airport;
             }
         }
-        return wantedAirports;
+        Airport[] airportsByWeekDayAndTime = new Airport[index];
+        System.arraycopy(wantedAirports, 0, airportsByWeekDayAndTime, 0, index);
+        return airportsByWeekDayAndTime;
     }
 
 }
