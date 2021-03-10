@@ -12,9 +12,9 @@ public class CalculateView {
 
     public final String FILTER_WEEKDAY = "Select a weekDay => ";
 
-    public final String FILTER_HOUR = "Select an hour => ";
+    public final String FILTER_HOUR = "Select an hour (0 - 23) => ";
 
-    public final String FILTER_MINUTE = "Select a minute => ";
+    public final String FILTER_MINUTE = "Select a minute (0 - 59) => ";
 
     public final String WRONG_INPUT_DATA = "Wrong input! ";
 
