@@ -5,12 +5,12 @@ import java.util.Arrays;
 
 public class Airport {
 
-    private String destination;
-    private String flightNumber;
-    private String planeType;
-    private LocalTime startTime;
-    private String[] weekDays;
-    private int planeNumber;
+    private final String destination;
+    private final String flightNumber;
+    private final String planeType;
+    private final LocalTime startTime;
+    private final String[] weekDays;
+    private final int planeNumber;
 
     public Airport(String destination, String flightNumber, String planeType, LocalTime startTime, String[] weekDays, int planeNumber) {
         this.destination = destination;

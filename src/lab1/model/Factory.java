@@ -1,6 +1,5 @@
 package lab1.model;
 
-import javax.xml.crypto.Data;
 import java.time.LocalTime;
 
 public class Factory {

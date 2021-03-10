@@ -27,8 +27,6 @@ public class CalculateController {
 
     public void calculateAction(String action) {
 
-        try {
-
             if (action.equalsIgnoreCase("getAll") || action.equals("1")) {
                 showAllAirports();
             } else if (action.equalsIgnoreCase("getByDestination") || action.equals("2")) {
@@ -43,10 +41,6 @@ public class CalculateController {
             } else {
                 view.printMessage(view.WRONG_INPUT_DATA);
             }
-
-        } catch (FakeNumberException | TimeOutOfBoundaryException err) {
-            System.out.println(err.getMessage());
-        }
 
         view.printMessage(view.INPUT_DATA);
     }
@@ -70,28 +64,46 @@ public class CalculateController {
         view.printMessageAndResult(airports);
     }
 
-    public void showAirportsByWeekDayAndTime() throws FakeNumberException, TimeOutOfBoundaryException {
+    public void showAirportsByWeekDayAndTime() {
         view.printMessage(view.FILTER_WEEKDAY);
         String weekDay = sc.nextLine();
-        view.printMessage(view.FILTER_HOUR);
-        String hour = sc.nextLine();
-        if (Validator.isNotInteger(hour)) {
-            throw new FakeNumberException("Incorrect hour. Must be integer!");
+
+        String hour = null;
+        while (hour == null) {
+            try {
+                hour = getHourFromUser();
+            } catch (FakeNumberException | TimeOutOfBoundaryException err) {
+                System.out.println(err.getMessage());
+            }
         }
-        if (!Validator.isCorrectHour(hour)) {
-            throw new TimeOutOfBoundaryException("Incorrect hour. (0 - 23)");
+
+        String minute = null;
+        while (minute == null) {
+            try {
+                minute = getMinuteFromUser();
+            } catch (FakeNumberException | TimeOutOfBoundaryException err) {
+                System.out.println(err.getMessage());
+            }
         }
-        view.printMessage(view.FILTER_MINUTE);
-        String minute = sc.nextLine();
-        if (Validator.isNotInteger(minute)) {
-            throw new FakeNumberException("Incorrect minute. Must be integer!");
-        }
-        if (!Validator.isCorrectMinute(minute)) {
-            throw new TimeOutOfBoundaryException("Incorrect minute. (0 - 59)");
-        }
+
         LocalTime startTime = LocalTime.of(Integer.parseInt(hour), Integer.parseInt(minute));
-        System.out.println(startTime);
         Airport[] airports = model.getAirportsByWeekDayAndTime(weekDay, startTime);
         view.printMessageAndResult(airports);
+    }
+
+     private String getHourFromUser() throws FakeNumberException, TimeOutOfBoundaryException {
+        view.printMessage(view.FILTER_HOUR);
+        String hour = sc.nextLine();
+        if (Validator.isNotInteger(hour)) throw new FakeNumberException(view.HOUR_MUST_BE_INTEGER);
+        if (Validator.isNotCorrectHour(hour)) throw new TimeOutOfBoundaryException(view.HOUR_OUT_OF_BOUNDARY);
+        return hour;
+    }
+
+    private String getMinuteFromUser() throws FakeNumberException, TimeOutOfBoundaryException {
+        view.printMessage(view.FILTER_MINUTE);
+        String minute = sc.nextLine();
+        if (Validator.isNotInteger(minute)) throw new FakeNumberException(view.MINUTE_MUST_BE_INTEGER);
+        if (Validator.isNotCorrectMinute(minute)) throw new TimeOutOfBoundaryException(view.MINUTE_OUT_OF_BOUNDARY);
+        return minute;
     }
 }
