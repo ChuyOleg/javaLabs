@@ -8,19 +8,18 @@ public class InputUtility {
 
     private static final Scanner sc = new Scanner(System.in);
 
-    public static String inputStringValueWithScanner(CalculateView view, String message) {
-        view.printMessage(message);
+    public static String inputStringValueWithScanner(CalculateView view, String inviteMessage) {
+        view.printMessage(inviteMessage);
         return sc.nextLine();
     }
 
-    public static int inputIntValueWithScanner(CalculateView view, String message, String messageForWrongType) {
-        view.printMessage(message);
+    public static int inputIntValueWithScanner(CalculateView view, String inviteMessage, String messageForWrongType) {
+        view.printMessage(inviteMessage);
         while(!sc.hasNextInt()) {
-            view.printMessage(messageForWrongType);
-            view.printMessage(message);
+            view.printMessage(messageForWrongType, inviteMessage);
             sc.nextLine();
         }
-        return sc.nextInt();
+        return Integer.parseInt(sc.nextLine());
     }
 
 }

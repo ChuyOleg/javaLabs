@@ -1,5 +1,6 @@
 package lab1.controller.validator;
 
+import lab1.controller.exceptions.NonExistentDayException;
 import lab1.controller.exceptions.TimeOutOfBoundaryException;
 import lab1.view.CalculateView;
 
@@ -17,6 +18,14 @@ public class Validator {
         }
     }
 
-    // days of the week
+    public static void checkForCorrectDay(String dayForCheck, CalculateView view) throws NonExistentDayException {
+        String[] weekDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        for (String day : weekDays) {
+            if (dayForCheck.equalsIgnoreCase(day)) {
+                return;
+            }
+        }
+        throw new NonExistentDayException(view.NON_EXISTENT_DAY);
+    }
 
 }

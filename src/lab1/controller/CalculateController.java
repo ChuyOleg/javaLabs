@@ -1,16 +1,14 @@
 package lab1.controller;
 
+import lab1.controller.exceptions.NonExistentDayException;
 import lab1.model.Airport;
 import lab1.service.InputUtility;
 import lab1.view.CalculateView;
 import lab1.model.Model;
 import lab1.controller.validator.Validator;
-//import lab1.controller.exceptions.FakeNumberException;
 import lab1.controller.exceptions.TimeOutOfBoundaryException;
 
 import java.time.LocalTime;
-// винести сканнер в окремий клас
-// з перевіркою на стрінг і інтежер
 
 public class CalculateController {
 
@@ -62,7 +60,16 @@ public class CalculateController {
 
     public void showAirportsByWeekDayAndTime() {
 
-        String weekDay = InputUtility.inputStringValueWithScanner(view, view.FILTER_WEEKDAY);
+        String weekDay;
+        while (true) {
+            try {
+                weekDay = InputUtility.inputStringValueWithScanner(view, view.FILTER_WEEKDAY);
+                Validator.checkForCorrectDay(weekDay, view);
+                break;
+            } catch (NonExistentDayException err) {
+                System.out.println(err.getMessage());
+            }
+        }
 
         int hour;
         while (true) {

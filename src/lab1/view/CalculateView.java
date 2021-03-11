@@ -26,6 +26,8 @@ public class CalculateView {
 
     public final String MINUTE_OUT_OF_BOUNDARY = "Incorrect minute. You have gone beyond (0 - 59). Try again, please.";
 
+    public final String NON_EXISTENT_DAY = "Non-existent day. Try again, please.";
+
     public final String NO_DATA = "Nothing have been found, please try again.";
 
     public final String RESULT = String.format("%70s", "Filtered data");
@@ -41,6 +43,10 @@ public class CalculateView {
 
     public void printMessage(String message) {
         System.out.print(message);
+    }
+
+    public void printMessage(String message1, String message2) {
+        System.out.print(message1 + System.lineSeparator() + message2);
     }
 
     public void printMessageAndResult(Airport[] airports) {
