@@ -1,26 +1,25 @@
 package lab1.controller;
 
 import lab1.model.Airport;
+import lab1.service.InputUtility;
 import lab1.view.CalculateView;
 import lab1.model.Model;
-import lab1.validator.Validator;
-import lab1.exceptions.FakeNumberException;
-import lab1.exceptions.TimeOutOfBoundaryException;
+import lab1.controller.validator.Validator;
+//import lab1.controller.exceptions.FakeNumberException;
+import lab1.controller.exceptions.TimeOutOfBoundaryException;
 
 import java.time.LocalTime;
-import java.util.Scanner;
+// винести сканнер в окремий клас
+// з перевіркою на стрінг і інтежер
 
 public class CalculateController {
 
-    private static final Scanner sc = new Scanner(System.in);
     private final CalculateView view = new CalculateView();
     private final Model model = new Model();
 
     public void runProgram() {
-        String action;
-        view.printMessage(view.INPUT_DATA);
         while(true) {
-            action = sc.nextLine();
+            String action = InputUtility.inputStringValueWithScanner(view, view.INPUT_DATA);
             calculateAction(action);
         }
     }
@@ -42,7 +41,6 @@ public class CalculateController {
                 view.printMessage(view.WRONG_INPUT_DATA);
             }
 
-        view.printMessage(view.INPUT_DATA);
     }
 
     public void showAllAirports() {
@@ -51,59 +49,55 @@ public class CalculateController {
     }
 
     public void showAirportsByDestination() {
-        view.printMessage(view.FILTER_DESTINATION);
-        String parameter = sc.nextLine();
+        String parameter = InputUtility.inputStringValueWithScanner(view, view.FILTER_DESTINATION);
         Airport[] airports = model.getAirportsByDestination(parameter);
         view.printMessageAndResult(airports);
     }
 
     public void showAirportsByWeekDay() {
-        view.printMessage(view.FILTER_WEEKDAY);
-        String parameter = sc.nextLine();
+        String parameter = InputUtility.inputStringValueWithScanner(view, view.FILTER_WEEKDAY);
         Airport[] airports = model.getAirportsByWeekDay(parameter);
         view.printMessageAndResult(airports);
     }
 
     public void showAirportsByWeekDayAndTime() {
-        view.printMessage(view.FILTER_WEEKDAY);
-        String weekDay = sc.nextLine();
 
-        String hour = null;
-        while (hour == null) {
+        String weekDay = InputUtility.inputStringValueWithScanner(view, view.FILTER_WEEKDAY);
+
+        int hour;
+        while (true) {
             try {
                 hour = getHourFromUser();
-            } catch (FakeNumberException | TimeOutOfBoundaryException err) {
+                break;
+            } catch (TimeOutOfBoundaryException err) {
                 System.out.println(err.getMessage());
             }
         }
 
-        String minute = null;
-        while (minute == null) {
+        int minute;
+        while (true) {
             try {
                 minute = getMinuteFromUser();
-            } catch (FakeNumberException | TimeOutOfBoundaryException err) {
+                break;
+            } catch (TimeOutOfBoundaryException err) {
                 System.out.println(err.getMessage());
             }
         }
 
-        LocalTime startTime = LocalTime.of(Integer.parseInt(hour), Integer.parseInt(minute));
+        LocalTime startTime = LocalTime.of(hour, minute);
         Airport[] airports = model.getAirportsByWeekDayAndTime(weekDay, startTime);
         view.printMessageAndResult(airports);
     }
 
-     private String getHourFromUser() throws FakeNumberException, TimeOutOfBoundaryException {
-        view.printMessage(view.FILTER_HOUR);
-        String hour = sc.nextLine();
-        if (Validator.isNotInteger(hour)) throw new FakeNumberException(view.HOUR_MUST_BE_INTEGER);
-        if (Validator.isNotCorrectHour(hour)) throw new TimeOutOfBoundaryException(view.HOUR_OUT_OF_BOUNDARY);
+     private int getHourFromUser() throws TimeOutOfBoundaryException {
+        int hour = InputUtility.inputIntValueWithScanner(view, view.FILTER_HOUR, view.HOUR_MUST_BE_INTEGER);
+        Validator.checkForCorrectHour(hour, view);
         return hour;
     }
 
-    private String getMinuteFromUser() throws FakeNumberException, TimeOutOfBoundaryException {
-        view.printMessage(view.FILTER_MINUTE);
-        String minute = sc.nextLine();
-        if (Validator.isNotInteger(minute)) throw new FakeNumberException(view.MINUTE_MUST_BE_INTEGER);
-        if (Validator.isNotCorrectMinute(minute)) throw new TimeOutOfBoundaryException(view.MINUTE_OUT_OF_BOUNDARY);
+    private int getMinuteFromUser() throws TimeOutOfBoundaryException {
+        int minute = InputUtility.inputIntValueWithScanner(view, view.FILTER_MINUTE, view.MINUTE_MUST_BE_INTEGER);
+        Validator.checkForCorrectMinute(minute, view);
         return minute;
     }
 }

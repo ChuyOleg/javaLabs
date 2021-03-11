@@ -1,4 +1,4 @@
-package lab1.exceptions;
+package lab1.controller.exceptions;
 
 public class TimeOutOfBoundaryException extends Exception {
 
