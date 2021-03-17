@@ -74,7 +74,8 @@ public class CalculateController {
         int hour;
         while (true) {
             try {
-                hour = getHourFromUser();
+                hour = InputUtility.inputIntValueWithScanner(view, view.FILTER_HOUR, view.HOUR_MUST_BE_INTEGER);
+                Validator.checkForCorrectHour(hour, view);
                 break;
             } catch (TimeOutOfBoundaryException err) {
                 System.out.println(err.getMessage());
@@ -84,7 +85,8 @@ public class CalculateController {
         int minute;
         while (true) {
             try {
-                minute = getMinuteFromUser();
+                minute = InputUtility.inputIntValueWithScanner(view, view.FILTER_MINUTE, view.MINUTE_MUST_BE_INTEGER);
+                Validator.checkForCorrectMinute(minute, view);
                 break;
             } catch (TimeOutOfBoundaryException err) {
                 System.out.println(err.getMessage());
@@ -96,15 +98,4 @@ public class CalculateController {
         view.printMessageAndResult(airports);
     }
 
-     private int getHourFromUser() throws TimeOutOfBoundaryException {
-        int hour = InputUtility.inputIntValueWithScanner(view, view.FILTER_HOUR, view.HOUR_MUST_BE_INTEGER);
-        Validator.checkForCorrectHour(hour, view);
-        return hour;
-    }
-
-    private int getMinuteFromUser() throws TimeOutOfBoundaryException {
-        int minute = InputUtility.inputIntValueWithScanner(view, view.FILTER_MINUTE, view.MINUTE_MUST_BE_INTEGER);
-        Validator.checkForCorrectMinute(minute, view);
-        return minute;
-    }
 }
