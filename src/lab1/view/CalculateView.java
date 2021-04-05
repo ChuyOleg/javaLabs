@@ -49,6 +49,10 @@ public class CalculateView {
         System.out.print(message1 + System.lineSeparator() + message2);
     }
 
+    public void printLNMessage(String message) {
+        System.out.println(message);
+    }
+
     public void printMessageAndResult(Airport[] airports) {
         if (airports.length > 0) {
             System.out.println(RESULT + System.lineSeparator() + COLUMNS);

@@ -53,23 +53,23 @@ public class CalculateController {
     }
 
     public void showAirportsByWeekDay() {
-        String parameter = InputUtility.inputStringValueWithScanner(view, view.FILTER_WEEKDAY);
-        Airport[] airports = model.getAirportsByWeekDay(parameter);
+
+        String weekDay = getWeekDayFromUser();
+        Airport[] airports = model.getAirportsByWeekDay(weekDay);
         view.printMessageAndResult(airports);
+
     }
 
     public void showAirportsByWeekDayAndTime() {
 
-        String weekDay;
-        while (true) {
-            try {
-                weekDay = InputUtility.inputStringValueWithScanner(view, view.FILTER_WEEKDAY);
-                Validator.checkForCorrectDay(weekDay, view);
-                break;
-            } catch (NonExistentDayException err) {
-                System.out.println(err.getMessage());
-            }
-        }
+        String weekDay = getWeekDayFromUser();
+        LocalTime startTime = getLocalTimeFromUser();
+
+        Airport[] airports = model.getAirportsByWeekDayAndTime(weekDay, startTime);
+        view.printMessageAndResult(airports);
+    }
+
+    private LocalTime getLocalTimeFromUser() {
 
         int hour;
         while (true) {
@@ -78,7 +78,7 @@ public class CalculateController {
                 Validator.checkForCorrectHour(hour, view);
                 break;
             } catch (TimeOutOfBoundaryException err) {
-                System.out.println(err.getMessage());
+                view.printLNMessage(err.getMessage());
             }
         }
 
@@ -89,13 +89,23 @@ public class CalculateController {
                 Validator.checkForCorrectMinute(minute, view);
                 break;
             } catch (TimeOutOfBoundaryException err) {
-                System.out.println(err.getMessage());
+                view.printLNMessage(err.getMessage());
             }
         }
 
-        LocalTime startTime = LocalTime.of(hour, minute);
-        Airport[] airports = model.getAirportsByWeekDayAndTime(weekDay, startTime);
-        view.printMessageAndResult(airports);
+        return LocalTime.of(hour, minute);
+    }
+
+    private String getWeekDayFromUser() {
+        while (true) {
+            try {
+                String weekDay = InputUtility.inputStringValueWithScanner(view, view.FILTER_WEEKDAY);
+                Validator.checkForCorrectDay(weekDay, view);
+                return weekDay;
+            } catch (NonExistentDayException err) {
+                view.printLNMessage(err.getMessage());
+            }
+        }
     }
 
 }
