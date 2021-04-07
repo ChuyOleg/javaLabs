@@ -1,5 +1,6 @@
 package lab1.controller.validator;
 
+import lab1.controller.exceptions.NonExistentAnswerException;
 import lab1.controller.exceptions.NonExistentDayException;
 import lab1.controller.exceptions.TimeOutOfBoundaryException;
 import lab1.view.CalculateView;
@@ -27,6 +28,15 @@ public class Validator {
             }
         }
         throw new NonExistentDayException(view.NON_EXISTENT_DAY);
+    }
+
+    public static void checkForCorrectAnswer(String answer, CalculateView view) throws NonExistentAnswerException {
+
+        if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("no")) {
+            return;
+        }
+        throw new NonExistentAnswerException(view.NON_EXISTENT_ANSWER);
+
     }
 
 }

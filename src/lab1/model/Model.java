@@ -7,7 +7,7 @@ public class Model {
     private final Airport[] airports;
 
     public Model() {
-        airports = new Factory().createAirports(10);
+        airports = new Factory().createAirports();
     }
 
     public Airport[] getAllAirports() {

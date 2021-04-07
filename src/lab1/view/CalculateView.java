@@ -30,7 +30,15 @@ public class CalculateView {
 
     public final String NO_DATA = "Nothing have been found, please try again.";
 
+    public final String NON_EXISTENT_ANSWER = "Incorrect answer. Must be `yes` or `no`. Answer again, please.";
+
     public final String RESULT = String.format("%70s", "Filtered data");
+
+    public final String SAVE_OR_NOT = "Do you want to save this result? (Yes | No) => ";
+
+    public final String SAVING_ERROR = "Error during saving. Try one more time.";
+
+    public final String SUCCESSFUL_SAVING = "Saving has been done.";
 
     public final String COLUMNS = String.format("%20s%20s%20s%20s%30s%20s",
             "Destination",

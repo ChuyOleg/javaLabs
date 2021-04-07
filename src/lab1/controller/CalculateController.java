@@ -1,7 +1,9 @@
 package lab1.controller;
 
+import lab1.controller.exceptions.NonExistentAnswerException;
 import lab1.controller.exceptions.NonExistentDayException;
 import lab1.model.Airport;
+import lab1.service.FileInteractingUtility;
 import lab1.service.InputUtility;
 import lab1.view.CalculateView;
 import lab1.model.Model;
@@ -24,32 +26,36 @@ public class CalculateController {
 
     public void calculateAction(String action) {
 
-            if (action.equalsIgnoreCase("getAll") || action.equals("1")) {
-                showAllAirports();
-            } else if (action.equalsIgnoreCase("getByDestination") || action.equals("2")) {
-                showAirportsByDestination();
-            } else if (action.equalsIgnoreCase("getByWeekDay") || action.equals("3")) {
-                showAirportsByWeekDay();
-            } else if (action.equalsIgnoreCase("GetByWeekDayAndTime") || action.equals("4")) {
-                showAirportsByWeekDayAndTime();
-            } else if (action.equalsIgnoreCase("Exit") || action.equals("5")) {
-                view.printMessage(view.END_DATA);
-                System.exit(0);
-            } else {
-                view.printMessage(view.WRONG_INPUT_DATA);
-            }
+        if (action.equalsIgnoreCase("getAll") || action.equals("1")) {
+            showAllAirports();
+        } else if (action.equalsIgnoreCase("getByDestination") || action.equals("2")) {
+            showAirportsByDestination();
+        } else if (action.equalsIgnoreCase("getByWeekDay") || action.equals("3")) {
+            showAirportsByWeekDay();
+        } else if (action.equalsIgnoreCase("GetByWeekDayAndTime") || action.equals("4")) {
+            showAirportsByWeekDayAndTime();
+        } else if (action.equalsIgnoreCase("Exit") || action.equals("5")) {
+            view.printMessage(view.END_DATA);
+            System.exit(0);
+        } else {
+            view.printMessage(view.WRONG_INPUT_DATA);
+        }
 
     }
 
     public void showAllAirports() {
         Airport[] airports = model.getAllAirports();
         view.printMessageAndResult(airports);
+        String answer = getAnswer();
+        FileInteractingUtility.saveResult(airports, answer, view);
     }
 
     public void showAirportsByDestination() {
-        String parameter = InputUtility.inputStringValueWithScanner(view, view.FILTER_DESTINATION);
-        Airport[] airports = model.getAirportsByDestination(parameter);
+        String destination = InputUtility.inputStringValueWithScanner(view, view.FILTER_DESTINATION);
+        Airport[] airports = model.getAirportsByDestination(destination);
         view.printMessageAndResult(airports);
+        String answer = getAnswer();
+        FileInteractingUtility.saveResult(airports, answer, view);
     }
 
     public void showAirportsByWeekDay() {
@@ -57,6 +63,8 @@ public class CalculateController {
         String weekDay = getWeekDayFromUser();
         Airport[] airports = model.getAirportsByWeekDay(weekDay);
         view.printMessageAndResult(airports);
+        String answer = getAnswer();
+        FileInteractingUtility.saveResult(airports, answer, view);
 
     }
 
@@ -67,6 +75,23 @@ public class CalculateController {
 
         Airport[] airports = model.getAirportsByWeekDayAndTime(weekDay, startTime);
         view.printMessageAndResult(airports);
+        String answer = getAnswer();
+        FileInteractingUtility.saveResult(airports, answer, view);
+
+    }
+
+    private String getAnswer() {
+
+        while (true) {
+            try {
+                String answer = InputUtility.inputStringValueWithScanner(view, view.SAVE_OR_NOT);
+                Validator.checkForCorrectAnswer(answer, view);
+                return answer;
+            } catch (NonExistentAnswerException err) {
+                view.printLNMessage(err.getMessage());
+            }
+        }
+
     }
 
     private LocalTime getLocalTimeFromUser() {

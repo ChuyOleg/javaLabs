@@ -1,66 +1,45 @@
 package lab1.model;
 
+import lab1.service.FileInteractingUtility;
+
 import java.time.LocalTime;
 
 public class Factory {
 
-    public Airport[] createAirports(int numberOfObjects) {
-        Airport[] airports = new Airport[numberOfObjects];
-        for (int number = 0; number < numberOfObjects; number++) {
-            String rDestination = getRandomDestination();
-            String rFlightNumber = getRandomFlightNumber();
-            String rPlaneType = getRandomPlaneType();
-            LocalTime rStartTime = getRandomStartTime();
-            String[] rWeekDays = getRandomWeekDays();
-            int rPlaneNumber = getRandomPlaneNumber();
-            airports[number] = new Airport(rDestination, rFlightNumber, rPlaneType, rStartTime, rWeekDays, rPlaneNumber);
+    public Airport[] createAirports() {
+
+        String[] data = FileInteractingUtility.getRowFromSource();
+        Airport[] airports = new Airport[data.length];
+
+        int index = 0;
+        for (String raw : data) {
+            airports[index++] = getAirportFromString(raw);
         }
+
         return airports;
     }
 
-    private int getRandomNumber(int end) {
-        return (int) Math.floor(Math.random() * (end + 1));
+    private Airport getAirportFromString(String raw) {
+        String[] values = raw.split("; ");
+        String destination = values[0];
+        String flightNumber = values[1];
+        String planeType = values[2];
+        LocalTime startTime = getStartTime(values[3]);
+        String[] weekDays = getWeekDays(values[4]);
+        int planeNumber = Integer.parseInt(values[5]);
+        return new Airport(destination, flightNumber, planeType, startTime, weekDays, planeNumber);
     }
 
-    private String getRandomDestination() {
-        int randomNum = getRandomNumber(DataSource.destinations.length - 1);
-        return DataSource.destinations[randomNum];
+    private LocalTime getStartTime(String str) {
+        int hour = Integer.parseInt(str.substring(0, 2));
+        int minute = Integer.parseInt(str.substring(3, 5));
+        return LocalTime.of(hour, minute);
     }
 
-    private String getRandomFlightNumber() {
-        int randomNum = getRandomNumber(DataSource.flightNumbers.length - 1);
-        return DataSource.flightNumbers[randomNum];
-    }
 
-    private String getRandomPlaneType() {
-        int randomNum = getRandomNumber(DataSource.planeTypes.length - 1);
-        return DataSource.planeTypes[randomNum];
-    }
-
-    private LocalTime getRandomStartTime() {
-        int randomNum = getRandomNumber(DataSource.startTimes.length - 1);
-        return DataSource.startTimes[randomNum];
-    }
-
-    private String[] getRandomWeekDays() {
-        String[] weekDays = new String[2];
-        int randomNum1 = getRandomNumber(DataSource.weekDays.length - 1);
-        int randomNum2 = getRandomNumber(DataSource.weekDays.length - 1);
-        if (randomNum1 == randomNum2) {
-            if (randomNum2 != (DataSource.weekDays.length - 1)) {
-                randomNum2++;
-            } else {
-                randomNum2--;
-            }
-        }
-        weekDays[0] = DataSource.weekDays[randomNum1];
-        weekDays[1] = DataSource.weekDays[randomNum2];
-        return weekDays;
-    }
-
-    private int getRandomPlaneNumber() {
-        int randomNum = getRandomNumber(DataSource.planeNumbers.length - 1);
-        return DataSource.planeNumbers[randomNum];
+    private String[] getWeekDays(String raw) {
+        String trimmedRaw = raw.substring(1, (raw.length() - 1));
+        return trimmedRaw.split(", ");
     }
 
 }
