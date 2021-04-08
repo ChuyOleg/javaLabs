@@ -41,8 +41,7 @@ public class CalculateController {
         } else if (action.equalsIgnoreCase("GetByWeekDayAndTime") || action.equals("4")) {
             showAirportsByWeekDayAndTime();
         } else if (action.equalsIgnoreCase("Exit") || action.equals("5")) {
-            // change question
-            String answer = getAnswer();
+            String answer = getAnswer(view.SAVE_OR_NOT_END);
             FileInteractingUtility.rewriteSourceFile(answer, model.getAllAirports(), view);
             view.printMessage(view.END_DATA);
             System.exit(0);
@@ -55,7 +54,7 @@ public class CalculateController {
     public void showAllAirports() {
         List<Airport> airports = model.getAllAirports();
         view.printMessageAndResult(airports);
-        String answer = getAnswer();
+        String answer = getAnswer(view.SAVE_OR_NOT);
         FileInteractingUtility.saveResult(airports, answer, view);
     }
 
@@ -63,7 +62,7 @@ public class CalculateController {
         String destination = InputUtility.inputStringValueWithScanner(view, view.FILTER_DESTINATION);
         List<Airport> airports = model.getAirportsByDestination(destination);
         view.printMessageAndResult(airports);
-        String answer = getAnswer();
+        String answer = getAnswer(view.SAVE_OR_NOT);
         FileInteractingUtility.saveResult(airports, answer, view);
     }
 
@@ -72,7 +71,7 @@ public class CalculateController {
         String weekDay = getWeekDayFromUser();
         List<Airport> airports = model.getAirportsByWeekDay(weekDay);
         view.printMessageAndResult(airports);
-        String answer = getAnswer();
+        String answer = getAnswer(view.SAVE_OR_NOT);
         FileInteractingUtility.saveResult(airports, answer, view);
 
     }
@@ -84,16 +83,16 @@ public class CalculateController {
 
         List<Airport> airports = model.getAirportsByWeekDayAndTime(weekDay, startTime);
         view.printMessageAndResult(airports);
-        String answer = getAnswer();
+        String answer = getAnswer(view.SAVE_OR_NOT);
         FileInteractingUtility.saveResult(airports, answer, view);
 
     }
 
-    private String getAnswer() {
+    private String getAnswer(String message) {
 
         while (true) {
             try {
-                String answer = InputUtility.inputStringValueWithScanner(view, view.SAVE_OR_NOT);
+                String answer = InputUtility.inputStringValueWithScanner(view, message);
                 Validator.checkForCorrectAnswer(answer, view);
                 return answer;
             } catch (NonExistentAnswerException err) {

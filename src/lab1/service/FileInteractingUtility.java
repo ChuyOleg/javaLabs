@@ -8,13 +8,16 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileInteractingUtility {
 
     private static final String SOURCE_FILE_NAME = "source.json";
+    private static final String JOURNAL_PATH = "src/lab1/journal.txt";
 
     private static final String FIELD_NAME = "airports";
 
@@ -77,13 +80,19 @@ public class FileInteractingUtility {
     public static void saveResult(List<Airport> result, String answer, CalculateView view) {
 
         if (answer.equalsIgnoreCase("yes")) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("journal.txt"))) {
-                // fix saving
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(JOURNAL_PATH, true))) {
+
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                LocalDateTime nowDate = LocalDateTime.now();
+                writer.write(dtf.format(nowDate));
+                writer.newLine();
+
                 for (Airport airport : result) {
                     writer.write(airport.toString());
+                    writer.newLine();
                 }
                 writer.newLine();
-                view.printLNMessage(view.SUCCESSFUL_SAVING);
+                view.printLNMessage(view.SUCCESSFULLY_SAVING);
             } catch (IOException err) {
                 view.printLNMessage(view.SAVING_ERROR);
             }
@@ -114,9 +123,11 @@ public class FileInteractingUtility {
                     jsonArray.add(airportObject);
                 }
 
-                jsonObject.put("airports", jsonArray);
+                jsonObject.put(FIELD_NAME, jsonArray);
 
                 writer.write(jsonObject.toJSONString());
+
+                view.printLNMessage(view.SUCCESSFULLY_SAVING);
 
             } catch (IOException err) {
                 view.printLNMessage(view.SOURCE_FILE_PROBLEM_END);
