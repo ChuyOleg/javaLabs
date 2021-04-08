@@ -11,6 +11,7 @@ import lab1.controller.validator.Validator;
 import lab1.controller.exceptions.TimeOutOfBoundaryException;
 
 import java.time.LocalTime;
+import java.util.List;
 
 public class CalculateController {
 
@@ -44,7 +45,7 @@ public class CalculateController {
     }
 
     public void showAllAirports() {
-        Airport[] airports = model.getAllAirports();
+        List<Airport> airports = model.getAllAirports();
         view.printMessageAndResult(airports);
         String answer = getAnswer();
         FileInteractingUtility.saveResult(airports, answer, view);
@@ -52,7 +53,7 @@ public class CalculateController {
 
     public void showAirportsByDestination() {
         String destination = InputUtility.inputStringValueWithScanner(view, view.FILTER_DESTINATION);
-        Airport[] airports = model.getAirportsByDestination(destination);
+        List<Airport> airports = model.getAirportsByDestination(destination);
         view.printMessageAndResult(airports);
         String answer = getAnswer();
         FileInteractingUtility.saveResult(airports, answer, view);
@@ -61,7 +62,7 @@ public class CalculateController {
     public void showAirportsByWeekDay() {
 
         String weekDay = getWeekDayFromUser();
-        Airport[] airports = model.getAirportsByWeekDay(weekDay);
+        List<Airport> airports = model.getAirportsByWeekDay(weekDay);
         view.printMessageAndResult(airports);
         String answer = getAnswer();
         FileInteractingUtility.saveResult(airports, answer, view);
@@ -73,7 +74,7 @@ public class CalculateController {
         String weekDay = getWeekDayFromUser();
         LocalTime startTime = getLocalTimeFromUser();
 
-        Airport[] airports = model.getAirportsByWeekDayAndTime(weekDay, startTime);
+        List<Airport> airports = model.getAirportsByWeekDayAndTime(weekDay, startTime);
         view.printMessageAndResult(airports);
         String answer = getAnswer();
         FileInteractingUtility.saveResult(airports, answer, view);

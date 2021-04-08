@@ -2,6 +2,8 @@ package lab1.view;
 
 import lab1.model.Airport;
 
+import java.util.List;
+
 public class CalculateView {
 
     public final String INPUT_DATA = "Select an action:  getAll(1) | getByDestination(2) | getByWeekDay(3) | GetByWeekDayAndTime(4) | Exit(5) => ";
@@ -61,8 +63,8 @@ public class CalculateView {
         System.out.println(message);
     }
 
-    public void printMessageAndResult(Airport[] airports) {
-        if (airports.length > 0) {
+    public void printMessageAndResult(List<Airport> airports) {
+        if (!airports.isEmpty()) {
             System.out.println(RESULT + System.lineSeparator() + COLUMNS);
             for (Airport airport : airports) {
                 System.out.println(airport);

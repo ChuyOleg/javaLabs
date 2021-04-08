@@ -1,7 +1,7 @@
 package lab1.model;
 
 import java.time.LocalTime;
-import java.util.Arrays;
+import java.util.List;
 
 public class Airport {
 
@@ -9,10 +9,10 @@ public class Airport {
     private final String flightNumber;
     private final String planeType;
     private final LocalTime startTime;
-    private final String[] weekDays;
+    private final List<String> weekDays;
     private final int planeNumber;
 
-    public Airport(String destination, String flightNumber, String planeType, LocalTime startTime, String[] weekDays, int planeNumber) {
+    public Airport(String destination, String flightNumber, String planeType, LocalTime startTime, List<String> weekDays, int planeNumber) {
         this.destination = destination;
         this.flightNumber = flightNumber;
         this.planeType = planeType;
@@ -29,7 +29,7 @@ public class Airport {
         return startTime;
     }
 
-    public String[] getWeekDays() {
+    public List<String> getWeekDays() {
         return weekDays;
     }
 
@@ -41,7 +41,7 @@ public class Airport {
                 planeType,
                 startTime,
                 startTime,
-                Arrays.toString(weekDays),
+                weekDays,
                 planeNumber
         );
     }

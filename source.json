@@ -1,0 +1,28 @@
+{
+  "airports": [
+    {
+      "destination": "Bern",
+      "flightNumber": "AC777",
+      "planeType": "Airbus 310",
+      "startTime": "12:35",
+      "weekDays": ["Thursday"],
+      "planeNumber": 5
+    },
+    {
+      "destination": "Berlin",
+      "flightNumber": "AC8534",
+      "planeType": "Boeing 747",
+      "startTime": "17:29",
+      "weekDays": ["Wednesday", "Friday", "Sunday"],
+      "planeNumber": 4
+    },
+    {
+      "destination": "Abu Dhabi",
+      "flightNumber": "AC85534",
+      "planeType": "Boeing 737",
+      "startTime": "20:20",
+      "weekDays": ["Monday", "Thursday"],
+      "planeNumber": 3
+    }
+  ]
+}
