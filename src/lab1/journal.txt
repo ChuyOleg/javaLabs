@@ -1,0 +1,52 @@
+2021/04/08 22:16:37
+         Destination        FlightNumber           PlaneType           StartTime                      WeekDays         PlaneNumber
+                Bern               AC777          Airbus 310               12:35                    [Thursday]                   5
+              Berlin              AC8534          Boeing 747               17:29   [Wednesday, Friday, Sunday]                   4
+           Abu Dhabi             AC85534          Boeing 737               20:20            [Monday, Thursday]                   3
+              Berlin             AC85534          Boeing 747               19:30   [Sunday, Wednesday, Friday]                   2
+                Bern               AC579         Airbus A310               12:20            [Sunday, Thursday]                   8
+           Amsterdam             AC85534          Boeing 777               13:13 [Monday, Wednesday, Saturday]                   6
+                Bern               AC777          Boeing 737               11:46           [Wednesday, Friday]                   7
+           Abu Dhabi              AC8534          Airbus 391               14:55   [Sunday, Tuesday, Saturday]                   5
+              Berlin               AC579         Airbus A310               09:45                   [Wednesday]                   2
+           Amsterdam             AC85534          Boeing 737               22:43             [Tuesday, Friday]                   7
+           Abu Dhabi               AC984          Boeing 777               13:43            [Monday, Thursday]                   1
+
+2021/04/08 22:16:44
+         Destination        FlightNumber           PlaneType           StartTime                      WeekDays         PlaneNumber
+              Berlin              AC8534          Boeing 747               17:29   [Wednesday, Friday, Sunday]                   4
+              Berlin             AC85534          Boeing 747               19:30   [Sunday, Wednesday, Friday]                   2
+              Berlin               AC579         Airbus A310               09:45                   [Wednesday]                   2
+
+2021/04/08 22:16:59
+         Destination        FlightNumber           PlaneType           StartTime                      WeekDays         PlaneNumber
+           Abu Dhabi             AC85534          Boeing 737               20:20            [Monday, Thursday]                   3
+           Amsterdam             AC85534          Boeing 777               13:13 [Monday, Wednesday, Saturday]                   6
+           Abu Dhabi               AC984          Boeing 777               13:43            [Monday, Thursday]                   1
+
+2021/04/08 22:31:03
+         Destination        FlightNumber           PlaneType           StartTime                      WeekDays         PlaneNumber
+                Bern               AC777          Airbus 310               12:35                    [Thursday]                   5
+              Berlin              AC8534          Boeing 747               17:29   [Wednesday, Friday, Sunday]                   4
+           Abu Dhabi             AC85534          Boeing 737               20:20            [Monday, Thursday]                   3
+              Berlin             AC85534          Boeing 747               19:30   [Sunday, Wednesday, Friday]                   2
+                Bern               AC579         Airbus A310               12:20            [Sunday, Thursday]                   8
+           Amsterdam             AC85534          Boeing 777               13:13 [Monday, Wednesday, Saturday]                   6
+                Bern               AC777          Boeing 737               11:46           [Wednesday, Friday]                   7
+           Abu Dhabi              AC8534          Airbus 391               14:55   [Sunday, Tuesday, Saturday]                   5
+              Berlin               AC579         Airbus A310               09:45                   [Wednesday]                   2
+           Amsterdam             AC85534          Boeing 737               22:43             [Tuesday, Friday]                   7
+           Abu Dhabi               AC984          Boeing 777               13:43            [Monday, Thursday]                   1
+
+2021/04/08 22:31:22
+         Destination        FlightNumber           PlaneType           StartTime                      WeekDays         PlaneNumber
+           Abu Dhabi             AC85534          Boeing 737               20:20            [Monday, Thursday]                   3
+           Abu Dhabi              AC8534          Airbus 391               14:55   [Sunday, Tuesday, Saturday]                   5
+           Abu Dhabi               AC984          Boeing 777               13:43            [Monday, Thursday]                   1
+
+2021/04/08 22:31:28
+         Destination        FlightNumber           PlaneType           StartTime                      WeekDays         PlaneNumber
+           Abu Dhabi             AC85534          Boeing 737               20:20            [Monday, Thursday]                   3
+           Amsterdam             AC85534          Boeing 777               13:13 [Monday, Wednesday, Saturday]                   6
+           Abu Dhabi               AC984          Boeing 777               13:43            [Monday, Thursday]                   1
+

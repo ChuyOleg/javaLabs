@@ -30,8 +30,6 @@ public class CalculateController {
 
     public void calculateAction(String action) {
 
-        // think about questions after every result!
-
         if (action.equalsIgnoreCase("getAll") || action.equals("1")) {
             showAllAirports();
         } else if (action.equalsIgnoreCase("getByDestination") || action.equals("2")) {
@@ -41,10 +39,7 @@ public class CalculateController {
         } else if (action.equalsIgnoreCase("GetByWeekDayAndTime") || action.equals("4")) {
             showAirportsByWeekDayAndTime();
         } else if (action.equalsIgnoreCase("Exit") || action.equals("5")) {
-            String answer = getAnswer(view.SAVE_OR_NOT_END);
-            FileInteractingUtility.rewriteSourceFile(answer, model.getAllAirports(), view);
-            view.printMessage(view.END_DATA);
-            System.exit(0);
+            closeProgram();
         } else {
             view.printMessage(view.WRONG_INPUT_DATA);
         }
@@ -59,11 +54,13 @@ public class CalculateController {
     }
 
     public void showAirportsByDestination() {
+
         String destination = InputUtility.inputStringValueWithScanner(view, view.FILTER_DESTINATION);
         List<Airport> airports = model.getAirportsByDestination(destination);
         view.printMessageAndResult(airports);
         String answer = getAnswer(view.SAVE_OR_NOT);
         FileInteractingUtility.saveResult(airports, answer, view);
+
     }
 
     public void showAirportsByWeekDay() {
@@ -83,6 +80,7 @@ public class CalculateController {
 
         List<Airport> airports = model.getAirportsByWeekDayAndTime(weekDay, startTime);
         view.printMessageAndResult(airports);
+
         String answer = getAnswer(view.SAVE_OR_NOT);
         FileInteractingUtility.saveResult(airports, answer, view);
 
@@ -100,6 +98,13 @@ public class CalculateController {
             }
         }
 
+    }
+
+    private void closeProgram() {
+        String answer = getAnswer(view.SAVE_OR_NOT_END);
+        FileInteractingUtility.rewriteSourceFile(answer, model.getAllAirports(), view);
+        view.printMessage(view.END_DATA);
+        System.exit(0);
     }
 
     private LocalTime getLocalTimeFromUser() {

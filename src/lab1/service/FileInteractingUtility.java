@@ -87,6 +87,8 @@ public class FileInteractingUtility {
                 writer.write(dtf.format(nowDate));
                 writer.newLine();
 
+                writer.write(view.COLUMNS);
+                writer.newLine();
                 for (Airport airport : result) {
                     writer.write(airport.toString());
                     writer.newLine();
@@ -127,7 +129,7 @@ public class FileInteractingUtility {
 
                 writer.write(jsonObject.toJSONString());
 
-                view.printLNMessage(view.SUCCESSFULLY_SAVING);
+                view.printLNMessage(view.SUCCESSFULLY_SAVING_END);
 
             } catch (IOException err) {
                 view.printLNMessage(view.SOURCE_FILE_PROBLEM_END);

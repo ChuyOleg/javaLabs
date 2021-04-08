@@ -48,6 +48,8 @@ public class CalculateView {
 
     public final String SUCCESSFULLY_SAVING = "Data has been successfully saved into journal.txt .";
 
+    public final String SUCCESSFULLY_SAVING_END = "Data has been successfully updated.";
+
     public final String COLUMNS = String.format("%20s%20s%20s%20s%30s%20s",
             "Destination",
             "FlightNumber",
