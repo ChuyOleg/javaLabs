@@ -25,6 +25,10 @@ public class Airport {
         return destination;
     }
 
+    public String getFlightNumber() { return flightNumber; }
+
+    public String getPlaneType() { return planeType; }
+
     public LocalTime getStartTime() {
         return startTime;
     }
@@ -32,6 +36,8 @@ public class Airport {
     public List<String> getWeekDays() {
         return weekDays;
     }
+
+    public int getPlaneNumber() { return planeNumber; }
 
     @Override
     public String toString() {

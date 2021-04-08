@@ -19,6 +19,9 @@ public class CalculateController {
     private final Model model = new Model();
 
     public void runProgram() {
+
+        model.setAirports(FileInteractingUtility.parseSourceData(view));
+
         while(true) {
             String action = InputUtility.inputStringValueWithScanner(view, view.INPUT_DATA);
             calculateAction(action);
@@ -26,6 +29,8 @@ public class CalculateController {
     }
 
     public void calculateAction(String action) {
+
+        // think about questions after every result!
 
         if (action.equalsIgnoreCase("getAll") || action.equals("1")) {
             showAllAirports();
@@ -36,6 +41,9 @@ public class CalculateController {
         } else if (action.equalsIgnoreCase("GetByWeekDayAndTime") || action.equals("4")) {
             showAirportsByWeekDayAndTime();
         } else if (action.equalsIgnoreCase("Exit") || action.equals("5")) {
+            // change question
+            String answer = getAnswer();
+            FileInteractingUtility.rewriteSourceFile(answer, model.getAllAirports(), view);
             view.printMessage(view.END_DATA);
             System.exit(0);
         } else {

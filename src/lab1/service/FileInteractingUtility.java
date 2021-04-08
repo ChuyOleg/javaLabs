@@ -14,29 +14,46 @@ import java.util.List;
 
 public class FileInteractingUtility {
 
-    public static List<Airport> getRowFromSource() {
+    private static final String SOURCE_FILE_NAME = "source.json";
+
+    private static final String FIELD_NAME = "airports";
+
+    private static final String DESTINATION_TAG = "destination";
+    private static final String FIGHT_NUMBER_TAG = "flightNumber";
+    private static final String PLANE_TYPE_TAG = "planeType";
+    private static final String START_TIME_TAG = "startTime";
+    private static final String WEEK_DAYS_TAG = "weekDays";
+    private static final String PLANE_NUMBER_TAG = "planeNumber";
+
+
+    public static List<Airport> parseSourceData(CalculateView view) {
 
         JSONParser jsonParser = new JSONParser();
 
         List<Airport> airports = new ArrayList<>();
 
-        try (FileReader reader = new FileReader("source.json")) {
+        try (FileReader reader = new FileReader(SOURCE_FILE_NAME)) {
 
             JSONObject mainObj = (JSONObject) jsonParser.parse(reader);
-            JSONArray airportsData = (JSONArray) mainObj.get("airports");
+            JSONArray airportsData = (JSONArray) mainObj.get(FIELD_NAME);
 
-            JSONObject obj = (JSONObject) airportsData.get(1);
-            String dest = (String) obj.get("destination");
-            String flightNumber = (String) obj.get("flightNumber");
-            String planeType = (String) obj.get("planeType");
-            LocalTime startTime = parseStartTime((String) obj.get("startTime"));
-            List<String> weekDays = parseWeekDays((JSONArray) obj.get("weekDays"));
-            long planeNumber = (long) obj.get("planeNumber");
+            for (Object airportData: airportsData) {
 
-            airports.add(new Airport(dest, flightNumber, planeType, startTime, weekDays, (int) planeNumber));
+                JSONObject airportObj = (JSONObject) airportData;
+                String dest = (String) airportObj.get(DESTINATION_TAG);
+                String flightNumber = (String) airportObj.get(FIGHT_NUMBER_TAG);
+                String planeType = (String) airportObj.get(PLANE_TYPE_TAG);
+                LocalTime startTime = parseStartTime((String) airportObj.get(START_TIME_TAG));
+                List<String> weekDays = parseWeekDays((JSONArray) airportObj.get(WEEK_DAYS_TAG));
+                long planeNumber = (long) airportObj.get(PLANE_NUMBER_TAG);
+
+                airports.add(new Airport(dest, flightNumber, planeType, startTime, weekDays, (int) planeNumber));
+            }
 
         } catch (IOException | ParseException err) {
-            System.out.println("EXCEPTION!");
+            view.printLNMessage(view.SOURCE_FILE_PROBLEM);
+            view.printLNMessage(view.END_DATA);
+            System.exit(0);
         }
 
         return airports;
@@ -69,6 +86,40 @@ public class FileInteractingUtility {
                 view.printLNMessage(view.SUCCESSFUL_SAVING);
             } catch (IOException err) {
                 view.printLNMessage(view.SAVING_ERROR);
+            }
+        }
+
+    }
+
+    // JSONObject uses raw type collections internally
+    @SuppressWarnings("unchecked")
+    public static void rewriteSourceFile(String answer, List<Airport> airports, CalculateView view) {
+
+        if (answer.equalsIgnoreCase("yes")) {
+            try (FileWriter writer = new FileWriter(SOURCE_FILE_NAME)) {
+
+                JSONObject jsonObject = new JSONObject();
+                JSONArray jsonArray = new JSONArray();
+
+                for (Airport airport : airports) {
+                    JSONObject airportObject = new JSONObject();
+
+                    airportObject.put(DESTINATION_TAG, airport.getDestination());
+                    airportObject.put(FIGHT_NUMBER_TAG, airport.getFlightNumber());
+                    airportObject.put(PLANE_TYPE_TAG, airport.getPlaneType());
+                    airportObject.put(START_TIME_TAG, airport.getStartTime().toString());
+                    airportObject.put(WEEK_DAYS_TAG, airport.getWeekDays());
+                    airportObject.put(PLANE_NUMBER_TAG, airport.getPlaneNumber());
+
+                    jsonArray.add(airportObject);
+                }
+
+                jsonObject.put("airports", jsonArray);
+
+                writer.write(jsonObject.toJSONString());
+
+            } catch (IOException err) {
+                view.printLNMessage(view.SOURCE_FILE_PROBLEM_END);
             }
         }
 

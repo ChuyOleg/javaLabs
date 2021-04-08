@@ -8,11 +8,7 @@ import java.util.List;
 
 public class Model {
 
-    private final List<Airport> airports;
-
-    public Model() {
-        airports = FileInteractingUtility.getRowFromSource();
-    }
+    private List<Airport> airports;
 
     public List<Airport> getAllAirports() {
         return airports;
@@ -29,6 +25,10 @@ public class Model {
         }
 
         return wantedAirports;
+    }
+
+    public void setAirports(List<Airport> airports) {
+        this.airports = airports;
     }
 
     public List<Airport> getAirportsByWeekDay(String weekDay) {

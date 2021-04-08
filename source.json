@@ -23,6 +23,70 @@
       "startTime": "20:20",
       "weekDays": ["Monday", "Thursday"],
       "planeNumber": 3
+    },
+    {
+      "destination": "Berlin",
+      "flightNumber": "AC85534",
+      "planeType": "Boeing 747",
+      "startTime": "19:30",
+      "weekDays": ["Sunday", "Wednesday", "Friday"],
+      "planeNumber": 2
+    },
+    {
+      "destination": "Bern",
+      "flightNumber": "AC579",
+      "planeType": "Airbus A310",
+      "startTime": "12:20",
+      "weekDays": ["Sunday", "Thursday"],
+      "planeNumber": 8
+    },
+    {
+      "destination": "Amsterdam",
+      "flightNumber": "AC85534",
+      "planeType": "Boeing 777",
+      "startTime": "13:13",
+      "weekDays": ["Monday", "Wednesday", "Saturday"],
+      "planeNumber": 6
+    },
+    {
+      "destination": "Bern",
+      "flightNumber": "AC777",
+      "planeType": "Boeing 737",
+      "startTime": "11:46",
+      "weekDays": ["Wednesday", "Friday"],
+      "planeNumber": 7
+    },
+    {
+      "destination": "Abu Dhabi",
+      "flightNumber": "AC8534",
+      "planeType": "Airbus 391",
+      "startTime": "14:55",
+      "weekDays": ["Sunday", "Tuesday", "Saturday"],
+      "planeNumber": 5
+    },
+    {
+      "destination": "Berlin",
+      "flightNumber": "AC579",
+      "planeType": "Airbus A310",
+      "startTime": "09:45",
+      "weekDays": ["Wednesday"],
+      "planeNumber": 2
+    },
+    {
+      "destination": "Amsterdam",
+      "flightNumber": "AC85534",
+      "planeType": "Boeing 737",
+      "startTime": "22:43",
+      "weekDays": ["Tuesday", "Friday"],
+      "planeNumber": 7
+    },
+    {
+      "destination": "Abu Dhabi",
+      "flightNumber": "AC984",
+      "planeType": "Boeing 777",
+      "startTime": "13:43",
+      "weekDays": ["Monday", "Thursday"],
+      "planeNumber": 1
     }
   ]
 }

@@ -42,6 +42,10 @@ public class CalculateView {
 
     public final String SUCCESSFUL_SAVING = "Saving has been done.";
 
+    public final String SOURCE_FILE_PROBLEM = "Source file doesn't exist or is empty.";
+
+    public final String SOURCE_FILE_PROBLEM_END = "Source file doesn't exist.";
+
     public final String COLUMNS = String.format("%20s%20s%20s%20s%30s%20s",
             "Destination",
             "FlightNumber",
