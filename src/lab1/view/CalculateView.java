@@ -38,8 +38,6 @@ public class CalculateView {
 
     public final String SAVE_OR_NOT = "Do you want to save this result? (Yes | No) => ";
 
-    public final String SAVE_OR_NOT_END = "Do you want to save all your changes? (Yes | No) => ";
-
     public final String SAVING_ERROR = "Error during saving. Try one more time.";
 
     public final String SOURCE_FILE_PROBLEM = "Source file doesn't exist or is empty.";

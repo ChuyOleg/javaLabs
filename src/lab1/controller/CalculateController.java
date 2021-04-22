@@ -2,26 +2,38 @@ package lab1.controller;
 
 import lab1.controller.exceptions.NonExistentAnswerException;
 import lab1.controller.exceptions.NonExistentDayException;
+import org.json.simple.parser.ParseException;
 import lab1.model.Airport;
-import lab1.service.FileInteractingUtility;
 import lab1.service.InputUtility;
 import lab1.view.CalculateView;
 import lab1.model.Model;
 import lab1.controller.validator.Validator;
 import lab1.controller.exceptions.TimeOutOfBoundaryException;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.List;
 
 public class CalculateController {
 
-    private final CalculateView view = new CalculateView();
-    private final Model model = new Model();
+    private final CalculateView view;
+    private final Model model;
+
+    public CalculateController() {
+        view = new CalculateView();
+
+        Model fakeModel = null;
+        try {
+            fakeModel = new Model();
+        } catch (IOException | ParseException err) {
+            view.printLNMessage(view.SOURCE_FILE_PROBLEM);
+            view.printLNMessage(view.END_DATA);
+            System.exit(0);
+        }
+        model = fakeModel;
+    }
 
     public void runProgram() {
-
-        model.setAirports(FileInteractingUtility.parseSourceData(view));
-
         while(true) {
             String action = InputUtility.inputStringValueWithScanner(view, view.INPUT_DATA);
             calculateAction(action);
@@ -47,10 +59,12 @@ public class CalculateController {
     }
 
     public void showAllAirports() {
+
         List<Airport> airports = model.getAllAirports();
         view.printMessageAndResult(airports);
-        String answer = getAnswer(view.SAVE_OR_NOT);
-        FileInteractingUtility.saveResult(airports, answer, view);
+
+        saveIntermediateData(airports);
+
     }
 
     public void showAirportsByDestination() {
@@ -58,8 +72,8 @@ public class CalculateController {
         String destination = InputUtility.inputStringValueWithScanner(view, view.FILTER_DESTINATION);
         List<Airport> airports = model.getAirportsByDestination(destination);
         view.printMessageAndResult(airports);
-        String answer = getAnswer(view.SAVE_OR_NOT);
-        FileInteractingUtility.saveResult(airports, answer, view);
+
+        saveIntermediateData(airports);
 
     }
 
@@ -68,8 +82,8 @@ public class CalculateController {
         String weekDay = getWeekDayFromUser();
         List<Airport> airports = model.getAirportsByWeekDay(weekDay);
         view.printMessageAndResult(airports);
-        String answer = getAnswer(view.SAVE_OR_NOT);
-        FileInteractingUtility.saveResult(airports, answer, view);
+
+        saveIntermediateData(airports);
 
     }
 
@@ -81,16 +95,27 @@ public class CalculateController {
         List<Airport> airports = model.getAirportsByWeekDayAndTime(weekDay, startTime);
         view.printMessageAndResult(airports);
 
-        String answer = getAnswer(view.SAVE_OR_NOT);
-        FileInteractingUtility.saveResult(airports, answer, view);
+        saveIntermediateData(airports);
 
     }
 
-    private String getAnswer(String message) {
+    private void saveIntermediateData(List<Airport> airports) {
+        String answer = getAnswer();
+        if (answer.equalsIgnoreCase("yes")) {
+            try {
+                model.saveIntermediateData(airports);
+                view.printLNMessage(view.SUCCESSFULLY_SAVING);
+            } catch (IOException err) {
+                view.printLNMessage(view.SAVING_ERROR);
+            }
+        }
+    }
+
+    private String getAnswer() {
 
         while (true) {
             try {
-                String answer = InputUtility.inputStringValueWithScanner(view, message);
+                String answer = InputUtility.inputStringValueWithScanner(view, view.SAVE_OR_NOT);
                 Validator.checkForCorrectAnswer(answer, view);
                 return answer;
             } catch (NonExistentAnswerException err) {
@@ -101,10 +126,17 @@ public class CalculateController {
     }
 
     private void closeProgram() {
-        String answer = getAnswer(view.SAVE_OR_NOT_END);
-        FileInteractingUtility.rewriteSourceFile(answer, model.getAllAirports(), view);
+
+        try {
+            model.rewriteSourceFile();
+            view.printLNMessage(view.SUCCESSFULLY_SAVING_END);
+        } catch (IOException err) {
+            view.printLNMessage(view.SOURCE_FILE_PROBLEM_END);
+        }
+
         view.printMessage(view.END_DATA);
         System.exit(0);
+
     }
 
     private LocalTime getLocalTimeFromUser() {

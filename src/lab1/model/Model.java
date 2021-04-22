@@ -1,14 +1,28 @@
 package lab1.model;
 
-import lab1.service.FileInteractingUtility;
-
+import org.json.simple.parser.ParseException;
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
 
+    private final FileInteracting fileInteracting;
     private List<Airport> airports;
+
+    public Model() throws IOException, ParseException {
+        fileInteracting = new FileInteracting();
+        airports = fileInteracting.parseSourceData();
+    }
+
+    public void saveIntermediateData(List<Airport> result) throws IOException {
+        fileInteracting.saveResult(result);
+    }
+
+    public void rewriteSourceFile() throws IOException {
+        fileInteracting.rewriteSourceFile(airports);
+    }
 
     public List<Airport> getAllAirports() {
         return airports;
@@ -25,10 +39,6 @@ public class Model {
         }
 
         return wantedAirports;
-    }
-
-    public void setAirports(List<Airport> airports) {
-        this.airports = airports;
     }
 
     public List<Airport> getAirportsByWeekDay(String weekDay) {
